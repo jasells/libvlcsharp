@@ -131,8 +131,12 @@ namespace LibVLCSharp.Platforms.Android
             }
             catch (ObjectDisposedException ex)
             {
-                Log.Warn("LibVLCSharp.VideoView",
-                        $"Detach() swallowed {ex.GetType()} to avoid Java/.NET GC race crash (see VideoLAN issue #659): {ex}");
+                var msg = $"Detach() swallowed {ex.GetType()} to avoid Java/.NET GC race crash (see VideoLAN issue #659): {ex}";
+                var source = $"{nameof(LibVLCSharp)}.{nameof(VideoView)}";
+                Log.Warn(source, msg);
+                LibVLCSharpDiagnostics.RaiseWarning(source: source,
+                                                    message: msg,
+                                                    exception: ex);
             }
             finally
             {
