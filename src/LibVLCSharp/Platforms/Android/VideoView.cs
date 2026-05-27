@@ -116,18 +116,31 @@ namespace LibVLCSharp.Platforms.Android
 
         void Detach()
         {
-            _awindow?.RemoveCallback(this);
-            _awindow?.DetachViews();
+            try
+            {
+                _awindow?.RemoveCallback(this);
+                _awindow?.DetachViews();
 
-            if (_layoutListener != null)
-                RemoveOnLayoutChangeListener(_layoutListener);
+                if (_layoutListener != null)
+                    RemoveOnLayoutChangeListener(_layoutListener);
 
-            _layoutListener?.Dispose();
-            _layoutListener = null;
+                _layoutListener?.Dispose();
 
-            _awindow?.Dispose();
-            _awindow = null;
+                _awindow?.Dispose();
+
+            }
+            catch (ObjectDisposedException ex)
+            {
+                Log.Warn("LibVLCSharp.VideoView",
+                        $"Detach() swallowed {ex.GetType()} to avoid Java/.NET GC race crash (see VideoLAN issue #659): {ex}");
+            }
+            finally
+            {
+                _layoutListener = null;
+                _awindow = null;
+            }
         }
+
 
         /// <summary>
         /// This is to workaround the first layout change not being raised when VideoView is behind a Xamarin.Forms custom renderer on Android.
