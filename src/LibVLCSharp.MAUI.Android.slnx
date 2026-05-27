@@ -9,6 +9,5 @@
     <File Path="../global.json" />
   </Folder>
   <Project Path="LibVLCSharp/LibVLCSharp.csproj" />
-  <Project Path="LibVLCSharp.Android.AWindowModern/LibVLCSharp.Android.AWindowModern.csproj" />
   <Project Path="LibVLCSharp.MAUI/LibVLCSharp.MAUI.csproj" />
 </Solution>
