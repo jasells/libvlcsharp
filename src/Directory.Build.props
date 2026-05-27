@@ -51,6 +51,7 @@
     <Authors>VideoLAN</Authors>
     <Owners>VideoLAN</Owners>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)..\artifacts\nupkgs</PackageOutputPath>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
@@ -59,8 +60,10 @@
     <RepositoryUrl>https://code.videolan.org/videolan/LibVLCSharp</RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReleaseNotes>https://code.videolan.org/videolan/LibVLCSharp/blob/master/NEWS</PackageReleaseNotes>
-    <VersionPrefix>3.9.7.1</VersionPrefix>
-    <VersionSuffix></VersionSuffix>
+    <FileVersion>3.9.7.1</FileVersion>
+    <AssemblyVersion>3.9.7.1</AssemblyVersion>
+    <InformationalVersion>3.9.7-alpha001</InformationalVersion>
+    <PackageVersion>3.9.7-alpha001</PackageVersion>
     <PackageTags>libvlc;vlc;videolan;native;c/c++;video;audio;player;media;mediaplayer;codec;ffmpeg;xamarin;graphics;ios;android;linux;windows;macos;cross-platform</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <NuGetAuditMode>all</NuGetAuditMode>
