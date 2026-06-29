@@ -57,9 +57,14 @@
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
     <PackageLicenseExpression>LGPL-2.1-or-later</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://code.videolan.org/videolan/LibVLCSharp</RepositoryUrl>
+    <RepositoryUrl>
+      https://github.com/jasells/libvlcsharp.git
+    </RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageReleaseNotes>https://code.videolan.org/videolan/LibVLCSharp/blob/master/NEWS</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      This is a forked package to apply a patch to fix a rare GC issue with the LibVLCSharp package on Android.
+      See the issue here: https://code.videolan.org/videolan/LibVLCSharp/-/work_items/659
+    </PackageReleaseNotes>
     <FileVersion>3.9.7.1</FileVersion>
     <AssemblyVersion>3.9.7.1</AssemblyVersion>
     <InformationalVersion>3.9.7-alpha001</InformationalVersion>
