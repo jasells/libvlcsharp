@@ -88,7 +88,12 @@ LibVLC needs to be installed separately, see VideoLAN.LibVLC.* packages.</Descri
   </ItemGroup>
   
   <ItemGroup Condition="$(TargetFramework.Contains('windows10')) ">
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
+    <!-- WindowsAppSDK 1.8.x is incompatible with .NET MAUI 9.0.x: its build targets try to copy
+         Microsoft.Maui's HybridWebView.js, which MAUI 9.0.120 does not ship at that path, causing
+         MSB3030 in consuming MAUI apps. 1.8 was an incidental bump (commit 8b184cc, "Add net10.0 TFM");
+         this lib needs no 1.8-specific API. Pin to the latest 1.7 servicing build, which builds clean
+         with MAUI 9.0.x. Revisit once MAUI ships a build compatible with WindowsAppSDK 1.8. -->
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.260224002" />
   </ItemGroup>
 
   <ItemGroup Condition="$(DefineConstants.Contains('UWP'))">

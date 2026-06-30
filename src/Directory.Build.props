@@ -64,11 +64,15 @@
     <PackageReleaseNotes>
       This is a forked package to apply a patch to fix a rare GC issue with the LibVLCSharp package on Android.
       See the issue here: https://code.videolan.org/videolan/LibVLCSharp/-/work_items/659
+
+      alpha002: Lower Microsoft.WindowsAppSDK floor from 1.8.251106002 back to 1.7.260224002. The 1.8.x
+      line is incompatible with .NET MAUI 9.0.x (MSB3030: missing Microsoft.Maui HybridWebView.js), and
+      the 1.8 bump was incidental rather than an API requirement, so the floor blocked MAUI 9.0.x consumers.
     </PackageReleaseNotes>
-    <FileVersion>3.9.7.1</FileVersion>
-    <AssemblyVersion>3.9.7.1</AssemblyVersion>
-    <InformationalVersion>3.9.7-alpha001</InformationalVersion>
-    <PackageVersion>3.9.7-alpha001</PackageVersion>
+    <FileVersion>3.9.7.2</FileVersion>
+    <AssemblyVersion>3.9.7.2</AssemblyVersion>
+    <InformationalVersion>3.9.7-alpha002</InformationalVersion>
+    <PackageVersion>3.9.7-alpha002</PackageVersion>
     <PackageTags>libvlc;vlc;videolan;native;c/c++;video;audio;player;media;mediaplayer;codec;ffmpeg;xamarin;graphics;ios;android;linux;windows;macos;cross-platform</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <NuGetAuditMode>all</NuGetAuditMode>

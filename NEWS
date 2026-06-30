@@ -1,3 +1,14 @@
+LibVLCSharp version 3.9.7.2
+=========================
+* Windows: Lower Microsoft.WindowsAppSDK floor from 1.8.251106002 to 1.7.260224002.
+  WindowsAppSDK 1.8.x is incompatible with .NET MAUI 9.0.x: its build targets try to copy
+  Microsoft.Maui's HybridWebView.js, which MAUI 9.0.120 does not ship at the expected path,
+  producing MSB3030 in consuming MAUI apps. The 1.8 bump (commit 8b184cc, "Add net10.0 TFM")
+  was incidental and not an API requirement, so the floor needlessly blocked MAUI 9.0.x consumers
+  while forcing them onto a broken WindowsAppSDK. The latest 1.7 servicing build (1.7.260224002)
+  builds clean against MAUI 9.0.x. NOTE (upstream feedback): worth revisiting once MAUI ships a
+  release compatible with WindowsAppSDK 1.8.x.
+
 LibVLCSharp version 3.9.7.1
 =========================
 * MAUI hotfix support for .NET 10
