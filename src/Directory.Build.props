@@ -45,6 +45,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <MicrosoftWindowsAppSDKVersion>1.8.251106002</MicrosoftWindowsAppSDKVersion>
+    <MicrosoftWindowsSDKBuildToolsVersion>10.0.26100.7175</MicrosoftWindowsSDKBuildToolsVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
