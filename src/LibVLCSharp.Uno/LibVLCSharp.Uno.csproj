@@ -58,7 +58,13 @@ It also contains a VLC MediaPlayerElement for the Uno Platform (UWP, Android, iO
     <Page Include="**\*.iOS.*xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.Contains('windows'))">
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="$(MicrosoftWindowsAppSDKVersion)" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="$(MicrosoftWindowsSDKBuildToolsVersion)" />
+    <!-- windowsSDk-maui9: Uno tracks upstream WindowsAppSDK 1.8. MSB3030 (WindowsAppSDK#6032) is
+         MAUI-specific (it copies Microsoft.Maui HybridWebView.js), so Uno does not need the 1.7
+         downgrade. The 1.7 pin in src\LibVLCSharp.WinUI is a floor for the MAUI graph only; the Uno
+         app graph resolves up to 1.8 (see WinAppSdkVersion in the sample) without affecting MAUI.
+         The Uno XAML control lib must be COMPILED against the same WindowsAppSDK the app runs on
+         (1.8) or its templated controls (PlaybackControls) fail to activate at runtime under 1.8. -->
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7175" />
   </ItemGroup>
 </Project>
