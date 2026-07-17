@@ -48,15 +48,19 @@
     <MicrosoftWindowsAppSDKVersion>1.6.240923002</MicrosoftWindowsAppSDKVersion>
     <MicrosoftWindowsSDKBuildToolsVersion>10.0.26100.7175</MicrosoftWindowsSDKBuildToolsVersion>
     <!-- CoreMRT (makepri) tooling requires the Appx PRI MSBuild task
-         (Microsoft.Build.Packaging.Pri.Tasks.dll) that ships with desktop msbuild.exe (Visual Studio)
-         but is ABSENT from the dotnet CLI SDK layout, so with MRT enabled `dotnet build` fails with
-         MSB4062 (any WindowsAppSDK version - reproduced on 1.6 and 1.7). But disabling MRT entirely
-         (mfkl's original unconditional hack) means LibVLCSharp.Uno's Strings\*.resw are never indexed
-         into the "LibVLCSharp.Uno/Resources" PRI subtree, and PlaybackControls' ctor eagerly builds an
-         MrtResourceLoader for it -> XamlParseException "Cannot create instance" at runtime, even in VS.
-         Scope the disable to non-VS (CLI/CI) builds only: VS builds keep MRT on so the resource index
-         is produced and the controls work; CLI builds skip it to avoid MSB4062 (they don't run the UI). -->
-    <EnableCoreMrtTooling Condition="'$(EnableCoreMrtTooling)' == '' And '$(BuildingInsideVisualStudio)' != 'true' And $(TargetFramework.Contains('windows10'))">false</EnableCoreMrtTooling>
+         (Microsoft.Build.Packaging.Pri.Tasks.dll) that ships with desktop msbuild.exe but is ABSENT
+         from the dotnet CLI SDK layout, so with MRT enabled `dotnet build` fails with MSB4062 (any
+         WindowsAppSDK version - reproduced on 1.6 and 1.7). But disabling MRT entirely (mfkl's original
+         unconditional hack) means LibVLCSharp.Uno's Strings\*.resw are never indexed into its
+         LibVLCSharp.Uno.pri under the "LibVLCSharp.Uno/Resources" subtree, and PlaybackControls' ctor
+         eagerly builds an MrtResourceLoader for it -> XamlParseException "Cannot create instance" at
+         runtime for any consumer whose package/app was built without it.
+         Gate on the BUILD ENGINE, not "inside VS": disable ONLY under the dotnet CLI
+         ($(MSBuildRuntimeType)=='Core', where the task is missing anyway). Every msbuild.exe build
+         ($(MSBuildRuntimeType)=='Full') - VS IDE *and* CI via msbuild.exe - keeps MRT on and produces
+         the PRI, so packages/apps ship the resources. => CI that packs these libraries MUST build with
+         msbuild.exe; `dotnet build`/`dotnet pack` cannot produce a resource-complete WinUI package here. -->
+    <EnableCoreMrtTooling Condition="'$(EnableCoreMrtTooling)' == '' And '$(MSBuildRuntimeType)' == 'Core' And $(TargetFramework.Contains('windows10'))">false</EnableCoreMrtTooling>
     <NeutralLanguage>en</NeutralLanguage>
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
